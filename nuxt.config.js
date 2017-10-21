@@ -1,3 +1,5 @@
+const axios = require('axios')
+
 module.exports = {
   /*
   ** Headers of the page
@@ -33,6 +35,16 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
+    }
+  },
+  generate: {
+    routes: function () {
+      return axios.get('https://jsonplaceholder.typicode.com/posts')
+        .then((res) => {
+          return res.data.map((post) => {
+            return '/posts/' + post.id
+          })
+        })
     }
   }
 }
